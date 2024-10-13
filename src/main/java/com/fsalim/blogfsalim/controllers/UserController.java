@@ -9,17 +9,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fsalim.blogfsalim.entities.User;
 import com.fsalim.blogfsalim.repositories.UserRepository;
+import com.fsalim.blogfsalim.services.UserService;
 
 @RestController
 @RequestMapping(value="/users")
 public class UserController {
 	
-	@Autowired
+	private final UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+	
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+    
+	/*@Autowired
 	private UserRepository userRepository;
 	
 	@GetMapping
 	public List<User> findAll(){
 		List<User> result = userRepository.findAll();
 		return result;
-	}
+	}*/
 }
